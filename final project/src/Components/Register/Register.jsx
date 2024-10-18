@@ -1,12 +1,15 @@
+import axios from "axios";
 import { useFormik } from "formik";
 import React from "react";
 
+
 export default function Register() {
-  function handleRegister(user){
+ async function handleRegister(user){
     console.log(user)
 //call api to send user information 
-
-  }
+let {data} = await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup" , user)
+console.log(data)  
+}
 
 
   function validationForm(user){
@@ -33,8 +36,8 @@ export default function Register() {
       phone: "",
     },
 
-validate:validationForm
-    , 
+// validate:validationForm
+    
 
     onSubmit : handleRegister
   });
