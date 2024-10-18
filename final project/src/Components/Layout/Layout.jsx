@@ -9,7 +9,7 @@ export default function Layout() {
   <>
   <Navbar/>
 
-<div className='container py-16 md:py-8'>
+<div className='container pl-10  py-16 md:py-8'>
 <Outlet/>
 
   
