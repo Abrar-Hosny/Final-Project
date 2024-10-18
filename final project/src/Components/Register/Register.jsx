@@ -1,25 +1,23 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
+
 export default function Register() {
-  const navigate = useNavigate() ; 
+  const [Loading, setLoading] = useState(false)
+  const navigate = useNavigate();
   async function handleRegister(user) {
-  
+    setLoading(true) ; 
     console.log(user);
     //call api to send user information
-    let { data } = await axios.post(
-      "https://ecommerce.routemisr.com/api/v1/auth/signup",
-      user
-    );
+    let { data } = await axios.post("http://localhost:3000/user", user);
     console.log(data);
-    if(data.message=="success"){
-navigate("/")
-    }
-    else{
-
+    setLoading(false)
+    if (data) {
+      navigate("/");
+    } else {
     }
   }
 
@@ -36,9 +34,9 @@ navigate("/")
       .min(6, "Password must be more than 6 char")
       .max(10, "Password must be less than 10 char")
       .required("Password is Required"),
-    rePassword: Yup.string().oneOf([Yup.ref("password")] , "repassword and password donot match").required("repassword is required")
-   
-   ,
+    rePassword: Yup.string()
+      .oneOf([Yup.ref("password")], "repassword and password donot match")
+      .required("repassword is required"),
 
     phone: Yup.string()
       .matches(/^[01][0125][0-9]{8}$/, "Phone is not correct")
@@ -61,10 +59,7 @@ navigate("/")
     <>
       <div className="mt-3">
         <h1 className="font-bold text-3xl mb-4 text-black">Register</h1>
-        <form
-          onSubmit={formik.handleSubmit}
-          className="max-w-sm mx-auto "
-        >
+        <form onSubmit={formik.handleSubmit} className="max-w-sm mx-auto ">
           <div className="relative z-0 w-full mb-3 mt-5 group">
             <input
               id="floating_name"
@@ -214,7 +209,7 @@ navigate("/")
             type="submit"
             className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
           >
-            Submit
+{Loading ? <i className="fas fa-spinner fa-spin"></i> : "Register"}
           </button>
         </form>
       </div>
