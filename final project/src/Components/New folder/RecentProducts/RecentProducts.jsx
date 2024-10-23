@@ -22,7 +22,7 @@ export default function RecentProducts() {
       <div className="flex flex-wrap py-5 ">
        
 
-        {Products.map((product) => (
+        {Products.length > 0 ? Products.map((product) => (
           <div className="w-1/6 mr-4">
 
             
@@ -37,7 +37,17 @@ export default function RecentProducts() {
             </div>
             </div>
           </div>
-        ))}
+        )) : <div className="sk-cube-grid my-auto">
+        <div className="sk-cube sk-cube1"></div>
+        <div className="sk-cube sk-cube2"></div>
+        <div className="sk-cube sk-cube3"></div>
+        <div className="sk-cube sk-cube4"></div>
+        <div className="sk-cube sk-cube5"></div>
+        <div className="sk-cube sk-cube6"></div>
+        <div className="sk-cube sk-cube7"></div>
+        <div className="sk-cube sk-cube8"></div>
+        <div className="sk-cube sk-cube9"></div>
+      </div>}
       </div>
     </>
   );
